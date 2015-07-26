@@ -38,6 +38,10 @@ describe FaradayMiddleware::AwsSignersV4 do
     end
   end
 
+  before do
+    stub_const('Faraday::VERSION', '0.9.1')
+  end
+
   subject { client.get('/account').body }
 
   it { is_expected.to eq response }
