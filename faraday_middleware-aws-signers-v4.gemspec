@@ -5,8 +5,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Genki Sugawara']
   spec.email         = ['sgwr_dts@yahoo.co.jp']
 
-  spec.summary       = %q{Faraday middleware for Signature Version 4.}
-  spec.description   = %q{Faraday middleware for Signature Version 4.}
+  spec.summary       = %q{Faraday middleware for AWS Signature Version 4.}
+  spec.description   = %q{Faraday middleware for AWS Signature Version 4.}
   spec.homepage      = 'https://github.com/winebarrel/faraday_middleware-aws-signers-v4'
   spec.license       = 'MIT'
 
