@@ -4,6 +4,16 @@ require 'faraday_middleware'
 require 'faraday_middleware/aws_signers_v4'
 require 'timecop'
 
+RSpec.configure do |config|
+  config.before(:all) do
+    Timecop.freeze(Time.utc(2015))
+  end
+
+  config.after(:all) do
+    Timecop.return
+  end
+end
+
 def faraday(options = {})
   options = {
     url: 'https://apigateway.us-east-1.amazonaws.com'
