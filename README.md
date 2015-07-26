@@ -2,6 +2,8 @@
 
 Faraday middleware for Signature Version 4.
 
+[![Build Status](https://travis-ci.org/winebarrel/faraday_middleware-aws-signers-v4.svg)](https://travis-ci.org/winebarrel/faraday_middleware-aws-signers-v4)
+
 ## Installation
 
 Add this line to your application's Gemfile:
