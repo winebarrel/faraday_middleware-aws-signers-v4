@@ -27,7 +27,7 @@ require 'faraday_middleware'
 require 'faraday_middleware/aws_signers_v4'
 require 'pp'
 
-conn = Faraday.new(:url => 'https://apigateway.us-east-1.amazonaws.com') do |faraday|
+conn = Faraday.new(url: 'https://apigateway.us-east-1.amazonaws.com') do |faraday|
   faraday.request :aws_signers_v4,
     credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY']),
     service_name: 'apigateway',
