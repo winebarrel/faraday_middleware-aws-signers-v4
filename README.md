@@ -1,7 +1,8 @@
 # FaradayMiddleware::AwsSignersV4
 
-Faraday middleware for Signature Version 4.
+[Faraday](https://github.com/lostisland/faraday) middleware for AWS Signature Version 4.
 
+[![Gem Version](https://badge.fury.io/rb/faraday_middleware-aws-signers-v4.svg)](http://badge.fury.io/rb/faraday_middleware-aws-signers-v4)
 [![Build Status](https://travis-ci.org/winebarrel/faraday_middleware-aws-signers-v4.svg)](https://travis-ci.org/winebarrel/faraday_middleware-aws-signers-v4)
 
 ## Installation
