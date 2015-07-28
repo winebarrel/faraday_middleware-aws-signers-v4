@@ -31,6 +31,8 @@ require 'pp'
 conn = Faraday.new(url: 'https://apigateway.us-east-1.amazonaws.com') do |faraday|
   faraday.request :aws_signers_v4,
     credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY']),
+    # If you use the credentials file:
+    #credentials: Aws::SharedCredentials.new.credentials,
     service_name: 'apigateway',
     region: 'us-east-1'
 
