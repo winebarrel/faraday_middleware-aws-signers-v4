@@ -1,9 +1,13 @@
 require 'aws-sdk-core/signers/v4'
 
-class Aws::Signers::V4
-  alias signed_headers_orig signed_headers
-
+module AwsSignersV4Ext
   def signed_headers(request)
-    signed_headers_orig(request).downcase
+    super.downcase
+  end
+end
+
+class Aws::Signers::V4
+  unless Aws::Signers::V4 < AwsSignersV4Ext
+    prepend AwsSignersV4Ext
   end
 end
