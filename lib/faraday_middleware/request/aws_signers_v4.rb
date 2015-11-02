@@ -30,8 +30,7 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
     service_name = options.fetch(:service_name)
     region = options.fetch(:region)
     @signer = Aws::Signers::V4.new(credentials, service_name, region)
-
-    @net_http = app.is_a?(Faraday::Adapter::NetHttp)
+    @net_http = net_http?(app)
   end
 
   def call(env)
@@ -48,6 +47,10 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
   end
 
   private
+
+  def net_http?(app)
+    app.is_a?(Faraday::Adapter::NetHttp)
+  end
 
   def normalize_for_net_http!(env)
     return unless @net_http
