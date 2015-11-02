@@ -1,3 +1,4 @@
+require 'faraday_middleware/ext/uri_ext'
 require 'faraday_middleware/aws_signers_v4_ext'
 
 class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
@@ -32,13 +33,13 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
     private
 
     def re_escape_query!(url)
-      unescaped = CGI.unescape(url.query)
+      params = URI.decode_www_form(url.query)
 
-      if unescaped =~ / /
-        url.query = Seahorse::Util.uri_escape(unescaped)
+      if params.any? {|k, v| v =~ / / }
+        url.query = URI.seahorse_encode_www_form(params)
       end
     end
-  end
+  end # of class Request
 
   def initialize(app, options = nil)
     super(app)

@@ -69,20 +69,20 @@ describe FaradayMiddleware::AwsSignersV4 do
   context 'with query' do
     context 'include space' do
       let(:signature) do
-        '722f75d62b1ca1fa98bf47a2fc87e6944f0b1c8ac13036f73ebf7134cb7bdf18'
+        '1fab19a15836760910137069dfe5393a758047569f5efd276e09d3f40bc8e166'
       end
 
-      let(:params) { {foo: 'b a r'} }
+      let(:params) { {foo: 'b a r', zoo: 'b a z'} }
 
       it { is_expected.to eq response }
     end
 
     context 'not include space' do
       let(:signature) do
-        'c74b4c350b93d03c6573df6c4af96342fc8835651a9b56559e92dd45b7a998b2'
+        'be8933a42d7517c7a9fba59f5440a3f920f21252376931c0dedeebf6c7d507eb'
       end
 
-      let(:params) { {foo: 'bar'} }
+      let(:params) { {foo: 'bar', zoo: 'baz'} }
 
       it { is_expected.to eq response }
     end
