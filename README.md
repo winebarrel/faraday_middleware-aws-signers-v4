@@ -4,6 +4,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/faraday_middleware-aws-signers-v4.svg)](http://badge.fury.io/rb/faraday_middleware-aws-signers-v4)
 [![Build Status](https://travis-ci.org/winebarrel/faraday_middleware-aws-signers-v4.svg)](https://travis-ci.org/winebarrel/faraday_middleware-aws-signers-v4)
+[![Coverage Status](https://coveralls.io/repos/winebarrel/faraday_middleware-aws-signers-v4/badge.svg?branch=master&service=github)](https://coveralls.io/github/winebarrel/faraday_middleware-aws-signers-v4?branch=master)
 
 ## Installation
 
