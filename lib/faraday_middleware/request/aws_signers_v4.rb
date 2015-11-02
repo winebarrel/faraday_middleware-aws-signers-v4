@@ -36,8 +36,12 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
 
   def call(env)
     normalize_for_net_http!(env)
+
     # Escape the query string or the request won't sign correctly
-    env.url.query = Seahorse::Util.uri_escape(env.url.query) if env.url and env.url.query
+    if env.url and env.url.query
+      env.url.query = Seahorse::Util.uri_escape(env.url.query)
+    end
+
     req = Request.new(env)
     @signer.sign(req)
     @app.call(env)
