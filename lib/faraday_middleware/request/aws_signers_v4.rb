@@ -15,11 +15,28 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
     end
 
     def endpoint
-      @env.url
+      url = @env.url.dup
+
+      # Escape the query string or the request won't sign correctly
+      if url and url.query
+        re_escape_query!(url)
+      end
+
+      url
     end
 
     def http_method
       @env.method.to_s.upcase
+    end
+
+    private
+
+    def re_escape_query!(url)
+      unescaped = CGI.unescape(url.query)
+
+      if unescaped =~ / /
+        url.query = Seahorse::Util.uri_escape(unescaped)
+      end
     end
   end
 
@@ -35,12 +52,6 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
 
   def call(env)
     normalize_for_net_http!(env)
-
-    # Escape the query string or the request won't sign correctly
-    if env.url and env.url.query
-      env.url.query = Seahorse::Util.uri_escape(env.url.query)
-    end
-
     req = Request.new(env)
     @signer.sign(req)
     @app.call(env)

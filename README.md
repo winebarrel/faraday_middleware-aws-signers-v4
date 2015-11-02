@@ -37,7 +37,7 @@ conn = Faraday.new(url: 'https://apigateway.us-east-1.amazonaws.com') do |farada
     service_name: 'apigateway',
     region: 'us-east-1'
 
-  faraday.response :json, :content_type => /\bjson$/
+  faraday.response :json, :content_type => /\bjson\b/
   faraday.response :raise_error
 
   faraday.adapter Faraday.default_adapter

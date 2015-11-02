@@ -48,9 +48,13 @@ describe FaradayMiddleware::AwsSignersV4 do
     end
   end
 
+  let(:params) { {} }
+
   before do
     stub_const('Faraday::VERSION', '0.9.1')
   end
+
+  subject { client.get('/account', params).body }
 
   context 'without query' do
     let(:signature) do
@@ -63,18 +67,30 @@ describe FaradayMiddleware::AwsSignersV4 do
   end
 
   context 'with query' do
-    let(:signature) do
-      '8287c520a389fbb0be36955e19d468d3c50d81cad922f59f2294a4c5b5cb6a73'
+    context 'include space' do
+      let(:signature) do
+        '722f75d62b1ca1fa98bf47a2fc87e6944f0b1c8ac13036f73ebf7134cb7bdf18'
+      end
+
+      let(:params) { {foo: 'b a r'} }
+
+      it { is_expected.to eq response }
     end
 
-    subject { client.get('/account', foo: 'bar').body }
+    context 'not include space' do
+      let(:signature) do
+        'c74b4c350b93d03c6573df6c4af96342fc8835651a9b56559e92dd45b7a998b2'
+      end
 
-    it { is_expected.to eq response }
+      let(:params) { {foo: 'bar'} }
+
+      it { is_expected.to eq response }
+    end
   end
 
   context 'use net/http' do
     let(:signature) do
-      '2dacc18472e7c9de3a919a128e00c3db66b257f6675a277cbe389eed993d28e6'
+      'a1abb29af96761771fdf914527a97acbf1cfd72cbd7a23379a5b36f5b2c9d5eb'
     end
 
     let(:signed_headers) do
@@ -89,8 +105,6 @@ describe FaradayMiddleware::AwsSignersV4 do
     before do
       expect_any_instance_of(FaradayMiddleware::AwsSignersV4).to receive(:net_http?) { true }
     end
-
-    subject { client.get('/account', foo: 'bar').body }
 
     it { is_expected.to eq response }
   end
