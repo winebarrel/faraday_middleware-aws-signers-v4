@@ -12,6 +12,7 @@ end
 
 require 'faraday_middleware'
 require 'faraday_middleware/aws_signers_v4'
+require 'faraday_middleware/ext/uri_ext'
 require 'timecop'
 
 RSpec.configure do |config|

@@ -3,7 +3,12 @@ describe URI do
 
   context 'not include space' do
     let(:params) do
-      [['foo', 'bar'], ['bar', ['zoo', 'baz']], ['baz', nil]]
+      [
+        ['foo', 'bar'],
+        ['bar', ['zoo', 'baz']],
+        ['baz', nil],
+        ['zoo', [nil, 'baz']]
+      ]
     end
 
     it do
@@ -13,11 +18,20 @@ describe URI do
 
   context 'include space' do
     let(:params) do
-      [['foo', 'b a r'], ['bar', ['z o o', 'baz']], ['baz', nil]]
+      [
+        ['foo', 'b a r'],
+        ['bar', ['z o o', 'baz']],
+        ['baz', nil],
+        ['zoo', [nil, 'baz']]
+      ]
+    end
+
+    let(:encoded_params) do
+      'foo=b%20a%20r&bar=z%20o%20o&bar=baz&baz&&zoo=baz'
     end
 
     it do
-      is_expected.to eq 'foo=b%20a%20r&bar=z%20o%20o&bar=baz&baz'
+      is_expected.to eq encoded_params
       is_expected.to_not eq URI.encode_www_form(params)
     end
   end

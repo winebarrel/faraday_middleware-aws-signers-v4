@@ -11,7 +11,8 @@ module URI
       elsif value.respond_to?(:to_ary)
         value.to_ary.map {|v|
           if v.nil?
-            encoded_key
+            # bug?
+            #encoded_key
           else
             encoded_key + '=' + Seahorse::Util.uri_escape(v)
           end
