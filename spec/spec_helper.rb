@@ -14,13 +14,14 @@ require 'faraday_middleware'
 require 'faraday_middleware/aws_signers_v4'
 require 'faraday_middleware/ext/uri_ext'
 require 'timecop'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
-  config.before(:all) do
+  config.before(:each) do
     Timecop.freeze(Time.utc(2015))
   end
 
-  config.after(:all) do
+  config.after(:each) do
     Timecop.return
   end
 end
