@@ -44,17 +44,16 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
   def initialize(app, options = nil)
     super(app)
 
-    credentials = options.fetch(:credentials)
-    service_name = options.fetch(:service_name)
-    region = options.fetch(:region)
-    @signer = Aws::Signers::V4.new(credentials, service_name, region)
+    @credentials = options.fetch(:credentials)
+    @service_name = options.fetch(:service_name)
+    @region = options.fetch(:region)
     @net_http = net_http?(app)
   end
 
   def call(env)
     normalize_for_net_http!(env)
     req = Request.new(env)
-    @signer.sign(req)
+    Aws::Signers::V4.new(@credentials, @service_name, @region).sign(req)
     @app.call(env)
   end
 
