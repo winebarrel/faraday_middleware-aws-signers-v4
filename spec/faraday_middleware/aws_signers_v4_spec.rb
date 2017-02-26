@@ -18,7 +18,7 @@ describe FaradayMiddleware::AwsSignersV4 do
   end
 
   let(:signed_headers) do
-    'host;user-agent;x-amz-content-sha256;x-amz-date'
+    'host;x-amz-content-sha256;x-amz-date'
   end
 
   let(:default_expected_headers) do
@@ -54,7 +54,7 @@ describe FaradayMiddleware::AwsSignersV4 do
 
   context 'without query' do
     let(:signature) do
-      'd25bb10ed5b6735974a3d1e0bae0bd8e4e28bddfd03a39e3e9ada780d54990a7'
+      'c09b39e34c45c4915dfebdff57b4096ab30363558b6bcb94e0489ef0bfd1bd89'
     end
 
     subject { client.get('/account').body }
@@ -67,7 +67,7 @@ describe FaradayMiddleware::AwsSignersV4 do
 
     context 'include space' do
       let(:signature) do
-        '1fab19a15836760910137069dfe5393a758047569f5efd276e09d3f40bc8e166'
+        '3ddc09ae39f44638aec66f71ebbe21377621900718e2d2893e11ad3c07030b4a'
       end
 
       let(:params) { {foo: 'b a r', zoo: 'b a z'} }
@@ -77,7 +77,7 @@ describe FaradayMiddleware::AwsSignersV4 do
 
     context 'not include space' do
       let(:signature) do
-        'be8933a42d7517c7a9fba59f5440a3f920f21252376931c0dedeebf6c7d507eb'
+        '10c4e1f9236d58a28fcec480ca635123d6fd168616d0a7e1529bbc62fb7c515c'
       end
 
       let(:params) { {foo: 'bar', zoo: 'baz'} }
@@ -90,11 +90,11 @@ describe FaradayMiddleware::AwsSignersV4 do
     subject { client.get('/account').body }
 
     let(:signature) do
-      'a1abb29af96761771fdf914527a97acbf1cfd72cbd7a23379a5b36f5b2c9d5eb'
+      'f3e76cef7d271786b6a35d02de70bafd9e0e5f7c50de9c17f9b7dc73f105f841'
     end
 
     let(:signed_headers) do
-      'accept;accept-encoding;host;user-agent;x-amz-content-sha256;x-amz-date'
+      'accept-encoding;host;x-amz-content-sha256;x-amz-date'
     end
 
     let(:additional_expected_headers) do
@@ -151,7 +151,7 @@ describe FaradayMiddleware::AwsSignersV4 do
         "X-Amz-Security-Token" => "test-token",
         "Authorization"        => [
           "AWS4-HMAC-SHA256 Credential=test-access-key-id/20150101/us-east-1/apigateway/aws4_request",
-          "SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date;x-amz-security-token",
+          "SignedHeaders=host;x-amz-content-sha256;x-amz-date;x-amz-security-token",
           "Signature=#{signature}",
         ].join(", "),
       }
@@ -166,7 +166,7 @@ describe FaradayMiddleware::AwsSignersV4 do
         "X-Amz-Security-Token" => "test-token-2",
         "Authorization"        => [
           "AWS4-HMAC-SHA256 Credential=test-access-key-id-2/20150101/us-east-1/apigateway/aws4_request",
-          "SignedHeaders=host;user-agent;x-amz-content-sha256;x-amz-date;x-amz-security-token",
+          "SignedHeaders=host;x-amz-content-sha256;x-amz-date;x-amz-security-token",
           "Signature=#{signature2}",
         ].join(", "),
       }
@@ -202,7 +202,7 @@ describe FaradayMiddleware::AwsSignersV4 do
       let(:expiration) { Time.now + 300 }
 
       let(:signature) do
-        '5db3e32fa139305425af96b4d8d2d1633baf4025fdf09a30c435dc6f50d841e2'
+        '2865f4c918c812c0319cd4e4a734a3eb5dceffbd19c105b6fda1cf3b084d88c7'
       end
 
       before do
@@ -221,10 +221,10 @@ describe FaradayMiddleware::AwsSignersV4 do
       let(:expiration)  { start_time + 3600 }
       let(:expiration2) { start_time + 3600 + 3600 }
       let(:signature) do
-        '5db3e32fa139305425af96b4d8d2d1633baf4025fdf09a30c435dc6f50d841e2'
+        '2865f4c918c812c0319cd4e4a734a3eb5dceffbd19c105b6fda1cf3b084d88c7'
       end
       let(:signature2) do
-        'c5823ad86dae5962dee6226a1b03d703f679838a627663f112c40b7534510e9f'
+        '7801ed64603c8496d8562faa81bb3438cb626483041cff2b83fbb8aa5a724dae'
       end
 
       before do
@@ -253,10 +253,10 @@ describe FaradayMiddleware::AwsSignersV4 do
       let(:expiration)  { start_time + 3600 }
       let(:expiration2) { start_time + 3600 + 3600 }
       let(:signature) do
-        '5db3e32fa139305425af96b4d8d2d1633baf4025fdf09a30c435dc6f50d841e2'
+        '2865f4c918c812c0319cd4e4a734a3eb5dceffbd19c105b6fda1cf3b084d88c7'
       end
       let(:signature2) do
-        'd2c1eeb728b800bcd9ef31589f8a2c3210ff8ae61bc5444f06cb05c73c4f031b'
+        '690a995ba60b9d04d9f3a19c9c649b4c69da782feda56a76fcf9c7053e724d58'
       end
 
       before do
