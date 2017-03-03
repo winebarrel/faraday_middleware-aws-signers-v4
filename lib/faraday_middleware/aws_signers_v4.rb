@@ -1,4 +1,4 @@
-require 'aws-sdk'
+require 'aws-sdk-resources'
 require 'faraday'
 
 module FaradayMiddleware
