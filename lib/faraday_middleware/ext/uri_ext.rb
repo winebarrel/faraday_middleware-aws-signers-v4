@@ -1,5 +1,5 @@
 require 'uri'
-require 'aws-sdk'
+require 'aws-sdk-resources'
 
 module URI
   def self.seahorse_encode_www_form(params)
