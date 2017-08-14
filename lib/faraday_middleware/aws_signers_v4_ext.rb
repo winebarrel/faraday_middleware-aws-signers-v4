@@ -1,4 +1,4 @@
-require 'aws-sdk-core/signers/v4'
+require 'aws-sdk/signers/v4'
 
 module AwsSignersV4Ext
   def signed_headers(request)
