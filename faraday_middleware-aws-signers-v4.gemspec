@@ -1,7 +1,7 @@
 # coding: utf-8
 Gem::Specification.new do |spec|
   spec.name          = 'faraday_middleware-aws-signers-v4'
-  spec.version       = '0.1.8.beta'
+  spec.version       = '0.2.0.beta'
   spec.authors       = ['Genki Sugawara']
   spec.email         = ['sgwr_dts@yahoo.co.jp']
 
