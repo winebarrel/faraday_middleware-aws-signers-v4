@@ -53,7 +53,7 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
   def call(env)
     normalize_for_net_http!(env)
     req = Request.new(env)
-    Aws::Signers::V4.new(@credentials, @service_name, @region).sign(req)
+    Aws::Sigv4::Signer.new(credentials: @credentials, service: @service_name, region: @region).sign_request(req)
     @app.call(env)
   end
 

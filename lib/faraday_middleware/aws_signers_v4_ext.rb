@@ -1,4 +1,4 @@
-require 'aws-sdk/signers/v4'
+require 'aws-sigv4/signer'
 
 module AwsSignersV4Ext
   def signed_headers(request)
@@ -6,8 +6,8 @@ module AwsSignersV4Ext
   end
 end
 
-class Aws::Signers::V4
-  unless Aws::Signers::V4 < AwsSignersV4Ext
+class Aws::Sigv4::Signer
+  unless Aws::Sigv4::Signer < AwsSignersV4Ext
     prepend AwsSignersV4Ext
   end
 end
