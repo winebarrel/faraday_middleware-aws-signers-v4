@@ -6,6 +6,10 @@
 [![Build Status](https://travis-ci.org/winebarrel/faraday_middleware-aws-signers-v4.svg)](https://travis-ci.org/winebarrel/faraday_middleware-aws-signers-v4)
 [![Coverage Status](https://coveralls.io/repos/winebarrel/faraday_middleware-aws-signers-v4/badge.svg?branch=master&service=github)](https://coveralls.io/github/winebarrel/faraday_middleware-aws-signers-v4?branch=master)
 
+**Currently developing gem to support aws-sdk-v3.**
+
+**see https://github.com/winebarrel/faraday_middleware-aws-sigv4**
+
 ## Installation
 
 Add this line to your application's Gemfile:
