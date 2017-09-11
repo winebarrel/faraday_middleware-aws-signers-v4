@@ -1,7 +1,7 @@
 # coding: utf-8
 Gem::Specification.new do |spec|
   spec.name          = 'faraday_middleware-aws-signers-v4'
-  spec.version       = '0.1.7'
+  spec.version       = '0.1.8'
   spec.authors       = ['Genki Sugawara']
   spec.email         = ['sgwr_dts@yahoo.co.jp']
 
@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'faraday', '~> 0.9'
-  spec.add_dependency 'aws-sdk-resources', '~> 2'
+  spec.add_dependency 'aws-sdk-resources', '>= 2', '< 3'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
