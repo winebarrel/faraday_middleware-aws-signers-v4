@@ -47,24 +47,11 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
     @credentials = options.fetch(:credentials)
     @service_name = options.fetch(:service_name)
     @region = options.fetch(:region)
-    @net_http = net_http?(app)
   end
 
   def call(env)
-    normalize_for_net_http!(env)
     req = Request.new(env)
     Aws::Signers::V4.new(@credentials, @service_name, @region).sign(req)
     @app.call(env)
-  end
-
-  private
-
-  def net_http?(app)
-    app.is_a?(Faraday::Adapter::NetHttp)
-  end
-
-  def normalize_for_net_http!(env)
-    return unless @net_http
-    env.request_headers['Accept'] ||= '*/*'
   end
 end

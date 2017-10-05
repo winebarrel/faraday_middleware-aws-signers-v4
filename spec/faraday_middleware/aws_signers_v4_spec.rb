@@ -86,28 +86,6 @@ describe FaradayMiddleware::AwsSignersV4 do
     end
   end
 
-  context 'use net/http' do
-    subject { client.get('/account').body }
-
-    let(:signature) do
-      'c09b39e34c45c4915dfebdff57b4096ab30363558b6bcb94e0489ef0bfd1bd89'
-    end
-
-    let(:signed_headers) do
-      'host;x-amz-content-sha256;x-amz-date'
-    end
-
-    let(:additional_expected_headers) do
-      {"Accept"=>"*/*"}
-    end
-
-    before do
-      expect_any_instance_of(FaradayMiddleware::AwsSignersV4).to receive(:net_http?) { true }
-    end
-
-    it { is_expected.to eq response }
-  end
-
   context 'with InstanceProfileCredentials' do
     let(:security_credentials_url) { 'http://169.254.169.254/latest/meta-data/iam/security-credentials/' }
 
