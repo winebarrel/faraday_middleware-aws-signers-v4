@@ -66,10 +66,6 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
   def normalize_for_net_http!(env)
     return unless @net_http
 
-    if Net::HTTP::HAVE_ZLIB
-      env.request_headers['Accept-Encoding'] ||= 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3'
-    end
-
     env.request_headers['Accept'] ||= '*/*'
   end
 end

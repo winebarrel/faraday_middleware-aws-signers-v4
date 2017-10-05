@@ -98,8 +98,7 @@ describe FaradayMiddleware::AwsSignersV4 do
     end
 
     let(:additional_expected_headers) do
-      {"Accept"=>"*/*",
-       "Accept-Encoding"=>"gzip;q=1.0,deflate;q=0.6,identity;q=0.3"}
+      {"Accept"=>"*/*"}
     end
 
     before do
