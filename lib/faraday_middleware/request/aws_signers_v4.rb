@@ -65,7 +65,6 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
 
   def normalize_for_net_http!(env)
     return unless @net_http
-
     env.request_headers['Accept'] ||= '*/*'
   end
 end
