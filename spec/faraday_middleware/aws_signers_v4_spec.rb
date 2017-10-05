@@ -90,11 +90,11 @@ describe FaradayMiddleware::AwsSignersV4 do
     subject { client.get('/account').body }
 
     let(:signature) do
-      'f3e76cef7d271786b6a35d02de70bafd9e0e5f7c50de9c17f9b7dc73f105f841'
+      'c09b39e34c45c4915dfebdff57b4096ab30363558b6bcb94e0489ef0bfd1bd89'
     end
 
     let(:signed_headers) do
-      'accept-encoding;host;x-amz-content-sha256;x-amz-date'
+      'host;x-amz-content-sha256;x-amz-date'
     end
 
     let(:additional_expected_headers) do
