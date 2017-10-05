@@ -66,6 +66,10 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
   def normalize_for_net_http!(env)
     return unless @net_http
 
+    # `net/http` forcibly adds a `Accept-Encoding` header.
+    # see https://github.com/ruby/ruby/blob/v2_4_2/lib/net/http/generic_request.rb#L39
+    # If you do not want you to add a `Accept-Encoding` header,
+    # explicitly set the header or use an adapter other than `net/http`.
     if Net::HTTP::HAVE_ZLIB
       env.request_headers['Accept-Encoding'] ||= 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3'
     end
