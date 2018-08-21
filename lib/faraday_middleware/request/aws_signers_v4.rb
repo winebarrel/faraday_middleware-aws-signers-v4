@@ -1,33 +1,44 @@
 require 'faraday_middleware/ext/uri_ext'
-require 'faraday_middleware/aws_signers_v4_ext'
+require 'aws-sigv4/signer'
 
 class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
   class Request
+    attr_reader :env
+
     def initialize(env)
       @env = env
     end
 
+    def generate
+      {
+        http_method: http_method,
+        url: url,
+        headers: headers,
+        body: body
+      }
+    end
+
     def headers
-      @env.request_headers
+      env.request_headers
     end
 
     def body
-      @env.body || ''
+      env.body || ''
     end
 
-    def endpoint
-      url = @env.url.dup
+    def url
+      _url = env.url.dup
 
       # Escape the query string or the request won't sign correctly
-      if url and url.query
-        re_escape_query!(url)
+      if _url and _url.query
+        re_escape_query!(_url)
       end
 
-      url
+      _url
     end
 
     def http_method
-      @env.method.to_s.upcase
+      env.method.to_s.upcase
     end
 
     private
@@ -50,8 +61,20 @@ class FaradayMiddleware::AwsSignersV4 < Faraday::Middleware
   end
 
   def call(env)
-    req = Request.new(env)
-    Aws::Signers::V4.new(@credentials, @service_name, @region).sign(req)
+    signature(env).headers.each do |key, val|
+      # Convert header string like 'x-amz-security-token'
+      # to 'X-Amz-Security-Token'
+      _key = key.gsub(/\A\w|(?<=-)\w/) { |s| s.upcase }
+      env.request_headers[_key] = val
+    end
     @app.call(env)
+  end
+
+  def signature(env)
+    Aws::Sigv4::Signer.new(
+      service: @service_name,
+      region: @region,
+      credentials_provider: @credentials
+    ).sign_request(Request.new(env).generate)
   end
 end
