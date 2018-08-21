@@ -16,7 +16,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'faraday', '~> 0.9'
-  spec.add_dependency 'aws-sdk-resources', '>= 2', '< 3'
+  spec.add_dependency 'aws-sigv4', '~> 1.0'
+  spec.add_dependency 'aws-sdk-core', '>= 3', '< 4'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
