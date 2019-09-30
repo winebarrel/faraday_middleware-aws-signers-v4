@@ -9,7 +9,7 @@
 
 **Currently developing new gem to support aws-sdk-v3.**
 
-**PLEASE USE faraday_middleware-aws-sigv4**
+**PLEASE USE faraday_middleware-aws-sigv4.**
 
 **see https://github.com/winebarrel/faraday_middleware-aws-sigv4**
 
